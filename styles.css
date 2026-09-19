@@ -238,12 +238,40 @@ h1 {
 }
 
 .todo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding-top: 20px;
   margin-top: 26px;
   color: var(--accent-dark);
   border-top: 1px solid var(--border);
   font-size: 0.9rem;
   font-weight: 700;
+}
+
+.clear-completed-button {
+  padding: 7px 10px;
+  color: var(--accent-dark);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.clear-completed-button:hover:not(:disabled) {
+  color: var(--button-text);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.clear-completed-button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .sr-only {
@@ -274,5 +302,10 @@ h1 {
   .theme-toggle {
     max-width: 132px;
     text-align: right;
+  }
+
+  .todo-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
