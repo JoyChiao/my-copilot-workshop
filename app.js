@@ -57,6 +57,23 @@ function getVisibleTodos() {
   return todos;
 }
 
+// 根據目前篩選模式提供清楚的空清單提示。
+function getEmptyMessage() {
+  if (todos.length === 0) {
+    return "還沒有任何待辦事項,新增一個吧!";
+  }
+
+  if (currentFilter === "active") {
+    return "目前沒有未完成的事項。切換到「全部」可以查看其他待辦事項。";
+  }
+
+  if (currentFilter === "completed") {
+    return "目前沒有已完成的事項。這筆待辦只是被篩選條件隱藏，沒有被刪除。";
+  }
+
+  return "目前沒有符合的待辦事項。";
+}
+
 // 根據目前資料重新繪製畫面與未完成數量。
 function renderTodos() {
   todoList.replaceChildren();
@@ -101,9 +118,7 @@ function renderTodos() {
 
   const unfinishedCount = todos.filter((todo) => !todo.completed).length;
   remainingCount.textContent = `未完成:${unfinishedCount} 項`;
-  emptyMessage.textContent = todos.length === 0
-    ? "還沒有任何待辦事項,新增一個吧!"
-    : "目前篩選沒有符合的待辦事項。";
+  emptyMessage.textContent = getEmptyMessage();
   emptyMessage.hidden = visibleTodos.length > 0;
 }
 
