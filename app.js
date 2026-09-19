@@ -1,4 +1,6 @@
 const STORAGE_KEY = "offline-todo-list";
+const FILTER_STORAGE_KEY = "todo-filter";
+const VALID_FILTERS = ["all", "active", "completed"];
 
 const todoForm = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
@@ -10,7 +12,7 @@ const themeToggle = document.querySelector("#theme-toggle");
 const filterButtons = document.querySelectorAll(".filter-button");
 
 let todos = loadTodos();
-let currentFilter = "all";
+let currentFilter = loadFilter();
 
 // 根據手動選擇或作業系統設定套用顯示主題。
 function applyTheme() {
@@ -43,6 +45,19 @@ function loadTodos() {
 // 將目前清單同步保存到瀏覽器儲存空間。
 function saveTodos() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+// 讀取並驗證保存的篩選條件，不合法時安全回退到全部。
+function loadFilter() {
+  const savedFilter = localStorage.getItem(FILTER_STORAGE_KEY);
+  return VALID_FILTERS.includes(savedFilter) ? savedFilter : "all";
+}
+
+// 同步篩選按鈕的選中狀態。
+function updateFilterButtons() {
+  filterButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.filter === currentFilter);
+  });
 }
 
 // 依目前篩選模式取得要顯示的待辦項目。
@@ -150,9 +165,8 @@ themeToggle.addEventListener("click", () => {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     currentFilter = button.dataset.filter;
-    filterButtons.forEach((filterButton) => {
-      filterButton.classList.toggle("active", filterButton === button);
-    });
+    localStorage.setItem(FILTER_STORAGE_KEY, currentFilter);
+    updateFilterButtons();
     renderTodos();
   });
 });
@@ -178,4 +192,5 @@ todoForm.addEventListener("submit", (event) => {
 });
 
 applyTheme();
+updateFilterButtons();
 renderTodos();
