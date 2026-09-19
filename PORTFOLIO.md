@@ -1,3 +1,5 @@
+![工作坊完成徽章](https://img.shields.io/badge/GitHub_Copilot_實戰工作坊-已完成-1F883D?style=for-the-badge&logo=githubcopilot&logoColor=white)
+
 # 待辦清單 Web App
 
 這是一個在 GitHub Copilot 實戰工作坊中完成的待辦清單 Web App。專案以簡潔的介面協助使用者管理日常待辦事項，並示範如何運用 GitHub Copilot 的 Agent Mode、MCP 與 agentic workflow 完成前端功能開發。
